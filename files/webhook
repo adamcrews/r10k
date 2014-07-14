@@ -64,7 +64,8 @@ class Server  < Sinatra::Base
     $logger.info("authenticated: #{$config['user']}")
     request.body.rewind  # in case someone already read it
     data = JSON.parse(request.body.read, :quirks_mode => true)
-    branch = data['ref'].split("/").last
+    #branch = data['ref'].split("/").last
+    branch = data['refChanges'][0]['refId'].split("/").last
 
     # If prefix is enabled in our config file run the command to determine the prefix
     if $config['prefix']
